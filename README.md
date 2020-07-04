@@ -12,4 +12,13 @@ To run this project in your local environment follow this steps --->>
 
  python -m venv env        # (this will create a virtul environment named env in your project directory )
  
- env\Scripts\activate      # (this will activate the virtual environment  )```
+ env\Scripts\activate      # (this will activate the virtual environment  )
+ ```
+# Installing Django locally :-
+Once environment has been activated you need to install django to work locally, 
+```python 
+pip install django     # This command will install django 
+cd t_clone 
+python manage.py runserver # this cmd  will run local server 
+```
+Go to http://localhost:8000/ in your browser... 
