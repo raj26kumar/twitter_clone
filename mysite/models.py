@@ -5,10 +5,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 
 
-class Tweet(models.Model):
-    content       = models.CharField(max_length = 140)
-    user          = models.ForeignKey(User,on_delete=models.CASCADE)
-    creation_date = models.DateTimeField(auto_now=True)
 
 
 
@@ -49,7 +45,8 @@ class Account(AbstractBaseUser):
     is_active            = models.BooleanField(default=True)
     is_staff             = models.BooleanField(default=False)
     is_superuser         = models.BooleanField(default=False)
-
+    user = models.OneToOneField("self", on_delete=models.CASCADE)
+    follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
     # def gravatar_url(self):
     #     return "http://www.gravatar.com/avatar/%s?s=50" % hashlib.md5(self.user.email).hexdigest()
 
@@ -65,3 +62,8 @@ class Account(AbstractBaseUser):
     def has_module_perms(self, app_label ):
         return True
 
+
+class Tweet(models.Model):
+    content       = models.CharField(max_length = 140)
+    user          = models.ForeignKey(Account,on_delete=models.CASCADE)
+    creation_date = models.DateTimeField(auto_now=True)
