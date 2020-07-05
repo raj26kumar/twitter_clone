@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import user
+from django.contrib.auth.models import User
 import hashlib
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
@@ -7,12 +7,12 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 class Tweet(models.Model):
     content       = models.CharField(max_length = 140)
-    user          = models.ForeignKey(User)
+    user          = models.ForeignKey(User,on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now=True)
 
 
 
-class MyAccountmanager(BaseUserManager):
+class MyAccountManager(BaseUserManager):
     def create_user(self, email, username, password=None):
         if not email:
             raise ValueError("users must have an email address")
@@ -49,6 +49,9 @@ class Account(AbstractBaseUser):
     is_active            = models.BooleanField(default=True)
     is_staff             = models.BooleanField(default=False)
     is_superuser         = models.BooleanField(default=False)
+
+    # def gravatar_url(self):
+    #     return "http://www.gravatar.com/avatar/%s?s=50" % hashlib.md5(self.user.email).hexdigest()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
