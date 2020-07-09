@@ -4,7 +4,7 @@ from .models import Account
 from django.contrib.auth import authenticate
 from .models import Account, Tweet
 
-
+from django import forms
 
 
 class RegistrationForm(UserCreationForm):
@@ -75,7 +75,7 @@ class AccountUpdateform(forms.ModelForm):
 
 
 class TweetForm(forms.ModelForm):
-    content = forms.CharField(required=True, widget=forms.widgets.Textarea(attr={'class':"form-control"}))
+    content = forms.CharField(required=True, widget=forms.widgets.Textarea(attrs={'class':"form-control"}))
 
 
 
@@ -87,4 +87,4 @@ class TweetForm(forms.ModelForm):
 
     class Meta:
         model = Tweet
-        exclude = ('user')
+        exclude = ('user',)
