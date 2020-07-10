@@ -71,7 +71,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 't_clone.wsgi.application'
 
-
+AUTH_USER_MODEL = 'mysite.Account'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
