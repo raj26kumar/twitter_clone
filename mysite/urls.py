@@ -1,11 +1,14 @@
 from django.urls import path
 
-from .views import (
+from mysite.views import (
                     home,
                     registration_view,
                     logout_view,
                     login_view
-                    )
+                )
+
+
+
 urlpatterns = [
 
     path('register/',registration_view, name="register" ),

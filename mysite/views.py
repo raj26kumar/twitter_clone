@@ -1,5 +1,13 @@
 from django.shortcuts import render
-from .forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateform
+from .forms import(
+        RegistrationForm,
+        AccountAuthenticationForm,
+        AccountUpdateform
+
+)
+
+
+
 # Create your views here.
 def home(request):
     return render(request, "base.html", {})
@@ -17,7 +25,7 @@ def registration_view(request):
             account = authenticate(email=email, password = raw_pass)
             login(request, account)
             messages.success(request, "You have been Registered as {}".format(request.user.username))
-            return redirect('home')
+
         else:
             messages.error(request, "Please Correct Below Errors")
             context['registration_form'] = form
@@ -30,7 +38,7 @@ def registration_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, "Logged Out")
-    return redirect("post_list")
+    return redirect("home")
 
 
 
@@ -49,7 +57,6 @@ def  login_view(request):
         if user:
             login(request, user)
             messages.success(request, "Logged In")
-            return redirect("home")
         else:
             messages.error(request, "Please Correct Below Errors")
     else:
