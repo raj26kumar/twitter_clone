@@ -1,10 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 import hashlib
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-
-
-
 
 
 
@@ -19,7 +15,7 @@ class MyAccountManager(BaseUserManager):
             username=username
             )
         user.set_password(password)
-        user.save(usingself._db)
+        user.save(using=self._db)
         return user
 
     def create_superuser(self, email, username, password):
@@ -45,14 +41,14 @@ class Account(AbstractBaseUser):
     is_active            = models.BooleanField(default=True)
     is_staff             = models.BooleanField(default=False)
     is_superuser         = models.BooleanField(default=False)
-    user = models.OneToOneField("self", on_delete=models.CASCADE)
+
     follows = models.ManyToManyField('self', related_name='followed_by', symmetrical=False)
     # def gravatar_url(self):
     #     return "http://www.gravatar.com/avatar/%s?s=50" % hashlib.md5(self.user.email).hexdigest()
-
+    objects = MyAccountManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
-    objects = MyAccountManager()
+
 
 
     def __str__(self):
